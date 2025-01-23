@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.repository.jdbc;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -37,7 +38,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         try {
-            getByUsername(user.getUsername());
+            findByUsername(user.getUsername());
             this.namedParameterJdbcTemplate.update("UPDATE users SET password=:password, enabled=:enabled WHERE username=:username", parameterSource);
         } catch (EmptyResultDataAccessException e) {
             this.insertUser.execute(parameterSource);
@@ -46,7 +47,14 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         }
     }
 
-    private User getByUsername(String username) {
+
+    @Override
+    public List<User> findAll() throws DataAccessException {
+        return List.of();
+    }
+
+    @Override
+    public User findByUsername(String username) {
 
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);

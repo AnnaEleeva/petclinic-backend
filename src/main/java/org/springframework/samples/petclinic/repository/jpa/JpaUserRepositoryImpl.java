@@ -9,6 +9,8 @@ import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Profile("jpa")
 public class JpaUserRepositoryImpl implements UserRepository {
@@ -24,4 +26,20 @@ public class JpaUserRepositoryImpl implements UserRepository {
             this.em.merge(user);
         }
     }
+
+
+    @Override
+    public User findByUsername(String username)  throws DataAccessException {
+        return this.em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+            .setParameter("username", username)
+            .getSingleResult();
+    }
+
+
+    @Override
+    public List findAll() throws DataAccessException {
+        return this.em.createQuery("SELECT u FROM User u").getResultList();
+    }
+
+
 }
