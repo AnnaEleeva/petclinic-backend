@@ -27,7 +27,7 @@ public class BasicAuthenticationConfig  {
         // @formatter:off
         http
             .authorizeHttpRequests((authz) -> authz
-                    .requestMatchers("/api/vets","/api/auth","api/auth/login").permitAll() // Эти пути доступны всем
+                    .requestMatchers("/api/vets").permitAll() // Эти пути доступны всем
                     .anyRequest().authenticated()
                 )
                 .httpBasic()
