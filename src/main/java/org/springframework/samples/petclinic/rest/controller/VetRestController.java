@@ -53,7 +53,7 @@ public class VetRestController implements VetsApi {
         this.specialtyMapper = specialtyMapper;
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
+    //@PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Override
     public ResponseEntity<List<VetDto>> listVets() {
         List<VetDto> vets = new ArrayList<>();
